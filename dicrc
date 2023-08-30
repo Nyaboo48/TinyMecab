@@ -1,0 +1,36 @@
+;
+; TinyMecab configuration file
+;
+dictionary-charset = utf8
+config-charset = UTF-8
+cost-factor = 700
+max-grouping-size = 10
+bos-feature = BOS/EOS,*,*,*,*,*,*,*,*,*,*,*,*,*
+eval-size = 6
+unk-eval-size = 4
+
+; simple
+node-format-simple = %m\t%f[0]\n
+unk-format-simple = %m\t%f[0]\n
+eos-format-simple = EOS\n
+
+; wakatiはmecabではハードコーディングされている
+; wakachが同じ結果になることを確認する
+node-format-wakati = %m\s
+unk-format-wakati = %m\s
+bos-format-wakati =
+eos-format-wakati = \n
+node-format-wakach = %m\s
+unk-format-wakach = %m\s
+bos-format-wakach =
+eos-format-wakach = \n
+
+node-format-rby = %f[9]
+unk-format-rby = %m
+bos-format-rby =
+eos-format-rby = \n
+
+node-format-rbx = <%m/%F/[9,0]>
+unk-format-rbx = %m
+bos-format-rbx =
+eos-format-rbx = \n
