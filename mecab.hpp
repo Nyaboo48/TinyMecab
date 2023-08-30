@@ -10,7 +10,7 @@
 #define DICRC              "dicrc"
 #define BOS_KEY            "BOS/EOS"
 #define BOS_FEATURE        "BOS/EOS,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*"
-#define DEFAULT_MAX_GROUPING_SIZE 24
+#define MAX_GROUPING_SIZE  24
 namespace MeCab {
 	// Parameters for MeCab::Node::stat
 	enum NodeStat : uint8_t {
@@ -28,7 +28,7 @@ namespace MeCab {
 		const char *surface;
 		const char *feature; // feature string
 
-		uint16_t length; // length of the surface form
+		uint16_t length;  // length of the surface form
 		uint16_t rlength; // length of the surface form including white space before the morph
 
 		uint16_t lcAttr; // left attribute id

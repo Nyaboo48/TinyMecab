@@ -13,22 +13,22 @@
 namespace MeCab {
 	class Lattice {
 		private:
+			std::string                            sentence_;
+			std::vector<std::forward_list<Node *>> endNodes_;
+			std::forward_list<Node>                nodeList_;
+			std::forward_list<Node *>              tokens_;
+			Writer          writer_;
 			// Tokenize
 			Dictionary      sysdic_;
 			Dictionary      unkdic_;
 			CharProperty    property_;
-			std::vector<DA> unk_da_;
 			CharInfo        space_;
+			std::vector<DA> unk_da_;
 			// Viterbi
 			Mmap<int16_t>   mmap_;
 			const int16_t  *matrix_;
 			size_t          lSize_;
 			size_t          rSize_;
-			Writer          writer_;
-			std::string                            sentence_;
-			std::vector<std::forward_list<Node *>> endNodes_;
-			std::forward_list<Node>                nodeList_;
-			std::forward_list<Node *>              tokens_;
 		public:
 			explicit Lattice() {}
 			~Lattice() {}
@@ -68,7 +68,6 @@ namespace MeCab {
 				return writer_.open(param);
 			}
 
-			// Sentence
 			void setSentence(const std::string &sentence) noexcept {
 				sentence_ = sentence;
 				writer_.setSentence(sentence);
@@ -80,7 +79,6 @@ namespace MeCab {
 				endNodes_[0].emplace_front(newBosNode());
 			}
 
-			// Viterbi
 			void viterbi() noexcept {
 				const std::string_view sv{sentence_};
 				const auto len = sv.size();
@@ -100,7 +98,6 @@ namespace MeCab {
 					node->prev->next = node;
 			}
 
-			// Stringify
 			bool stringify(std::string &os) const noexcept {
 				os.clear();
 				if (endNodes_.empty())
@@ -111,7 +108,6 @@ namespace MeCab {
 				return true;
 			}
 		private:
-			// Node
 			Node *newNode(const NodeStat stat,
 				const char *surface, const char *feature,
 				const uint16_t len = 0, const uint16_t slen = 0,
@@ -146,7 +142,6 @@ namespace MeCab {
 				endNodes_[pos].emplace_front(node);
 			}
 
-			// Token
 			void addNor(const DA &da, const char *surface, const size_t slen) noexcept {
 				auto [token, tsize, len] = da;
 				for (auto i = 0; i < tsize; ++i, ++token)
@@ -155,13 +150,6 @@ namespace MeCab {
 						static_cast<uint16_t>(len), static_cast<uint16_t>(slen),
 						token->lcAttr, token->rcAttr, token->wcost));
 			}
-			// 未知語辞書にはたとえばKANJIが5種類定義されている
-			// N-Bestでもない限りひとつでじゅうぶんですよ
-			// KANJI,15677,16511,10526,名詞,普通名詞,一般,*,*,*
-			// KANJI,15510,16280,12994,名詞,普通名詞,サ変可能,*,*,*
-			// KANJI,14624,15397,13209,名詞,固有名詞,一般,*,*,*
-			// KANJI,14666,15439,13511,名詞,固有名詞,人名,一般,*,*
-			// KANJI,14764,15537,14920,名詞,固有名詞,地名,一般,*,*
 			void addUnk(const CharInfo cinfo, const char *surface, const size_t len, const size_t slen) noexcept {
 				auto [token, tsize, xxx] = unk_da_[cinfo.default_type];
 				for (auto i = 0; i < tsize; ++i, ++token)
@@ -176,8 +164,8 @@ namespace MeCab {
 
 				// skip space
 				auto [cinfo, mlen, clen, blen] = property_.seekToOtherType(sv, space_);
-				if (sv.size() == blen) return; // 空白で終わっている
-				const auto slen = blen; // space len
+				if (sv.size() == blen) return; // ends with space
+				const auto slen = blen; // space length
 				const auto surface = sv.substr(slen);
 
 				// dictionary
@@ -186,20 +174,19 @@ namespace MeCab {
 					addNor(da, surface.data(), slen);
 				if (!tokens_.empty() && !cinfo.invoke) return;
 
-				// 連続する同種の文字がmax-grouping-size文字までなら未知語として追加
-				// [ア-ン]{,24} なイメージ
+				// Unknown words less than or equal to max-grouping-size characters
 				const char *isAdded = nullptr;
 				if (cinfo.group) {
 					std::tie(std::ignore, std::ignore, clen, blen) = property_.seekToOtherType(surface.substr(mlen), cinfo);
 					const size_t ulen = mlen + blen;
-					const char *tail = surface.data() + ulen; // 未知語の末尾
-					if (clen <= DEFAULT_MAX_GROUPING_SIZE)
+					const char *tail = surface.data() + ulen; // Tail of unknown word
+					if (clen <= MAX_GROUPING_SIZE)
 						addUnk(cinfo, surface.data(), ulen, slen);
 					isAdded = tail;
 				}
 
-				// 先頭1〜cinfo.length文字
-				const char *tail = surface.data() + mlen; // surfaceの1文字後
+				// First 1 to cinfo.length character
+				const char *tail = surface.data() + mlen; // One character after surface
 				size_t ulen = mlen;
 				for (auto i = 0; i < cinfo.length && tail < end; ++i) {
 					if (tail == isAdded) continue;

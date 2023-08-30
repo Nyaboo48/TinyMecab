@@ -33,7 +33,7 @@ namespace MeCab {
 				const char *ptr = mmap_.begin();
 
 				const size_t csize = read32u(&ptr);
-				const size_t fsize = sizeof(uint32_t) + (32 * csize) + sizeof(CharInfo) * 0xffff;
+				const size_t fsize = sizeof(uint32_t) + (csize * 32) + sizeof(CharInfo) * 0xffff;
 				if (fsize != mmap_.size()) {
 					std::cerr << "invalid file size: " << filename << std::endl;
 					return false;

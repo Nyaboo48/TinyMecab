@@ -33,7 +33,7 @@ namespace MeCab {
 		public:
 			explicit Dictionary() {}
 			~Dictionary() {}
-			bool open(const std::string &filename) {
+			bool open(const std::string &filename) noexcept {
 				if (!mmap_.open(filename))
 					return false;
 				if (mmap_.size() < 100) {
@@ -58,7 +58,7 @@ namespace MeCab {
 				const auto tsize = read32u(&ptr);
 				const auto fsize = read32u(&ptr);
 				ptr += sizeof(uint32_t); // dummy
-				ptr += 32; // charset
+				ptr += 32; // skip charset
 
 				array_ = reinterpret_cast<const unit_t *>(ptr);
 				ptr += dsize;

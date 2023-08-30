@@ -14,8 +14,8 @@ node-format-simple = %m\t%f[0]\n
 unk-format-simple = %m\t%f[0]\n
 eos-format-simple = EOS\n
 
-; wakatiはmecabではハードコーディングされている
-; wakachが同じ結果になることを確認する
+; wakati is hard coded in mecab
+; Check that wakach has the same result
 node-format-wakati = %m\s
 unk-format-wakati = %m\s
 bos-format-wakati =

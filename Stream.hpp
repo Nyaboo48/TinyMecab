@@ -12,7 +12,7 @@ namespace MeCab {
 		public:
 			std::istream &operator*() const noexcept { return *is_; }
 			explicit iStream(const std::string &filename) {
-				is_ = (filename == "-") ?  &std::cin : new std::ifstream(filename);
+				is_ = (filename == "-") ? &std::cin : new std::ifstream(filename);
 			}
 			~iStream() { if (is_ != &std::cin) delete is_; }
 	};
@@ -22,7 +22,7 @@ namespace MeCab {
 		public:
 			std::ostream &operator*() const noexcept { return *os_; }
 			explicit oStream(const std::string &filename) {
-				os_ = (filename == "-") ?  &std::cout : new std::ofstream(filename);
+				os_ = (filename == "-") ? &std::cout : new std::ofstream(filename);
 			}
 			~oStream() { if (os_ != &std::cout) delete os_; }
 	};

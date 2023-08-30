@@ -10,19 +10,19 @@
 #include "Lattice.hpp"
 namespace MeCab {
 	const MeCab::Option options[] = {
-		{"rcfile",             'r', nullptr     }, // use FILE as resource file
-		{"dicdir",             'd', nullptr     }, // set DIR  as a system dicdir
-		{"output-format-type", 'O', nullptr     }, // set output format type (wakati,none,...)
-		{"output",             'o', nullptr     }, // set the output file name
-		{"node-format",        'F', "%m\\t%H\\n"}, // use STR as the user-defined node format
-		{"unk-format",         'U', nullptr     }, // use STR as the user-defined unknown node format
-		{"bos-format",         'B', ""          }, // use STR as the user-defined beginning-of-sentence format
-		{"eos-format",         'E', "EOS\\n"    }, // use STR as the user-defined end-of-sentence format
-		{"eon-format",         'S', ""          }, // use STR as the user-defined end-of-NBest format
-		{"unk-feature",        'x', nullptr     }, // use STR as the feature for unknown word
-		//{"dump-config",        'P', nullptr     }, // dump MeCab parameters
-		{"input-buffer-size",  'b', nullptr     }, // IGNORED
-		{nullptr, '\0', nullptr}
+		{"rcfile",             'r'}, // resource file
+		{"dicdir",             'd'}, // system dicdir
+		{"output-format-type", 'O'}, // output format type (wakati,none,...)
+		{"output",             'o'}, // output file name
+		{"node-format",        'F'}, // user-defined node format
+		{"unk-format",         'U'}, // user-defined unknown node format
+		{"bos-format",         'B'}, // user-defined beginning-of-sentence format
+		{"eos-format",         'E'}, // user-defined end-of-sentence format
+		{"eon-format",         'S'}, // user-defined end-of-NBest format(NOT USED)
+		{"unk-feature",        'x'}, // feature for unknown word
+	//{"dump-config",        'P'}, // dump MeCab parameters
+		{"input-buffer-size",  'b'}, // IGNORED
+		{nullptr, '\0'}
 	};
 }
 int main(int argc, char **argv) {

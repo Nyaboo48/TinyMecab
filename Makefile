@@ -39,7 +39,7 @@ tar:
 	$(TAR) $(FILE) Makefile $(SRC) $(HDR) compile_flags.txt memo.md
 
 DICDIR := /mnt/c/home/mecab/unidic-csj-202302
-TXTFILE := ../_.md
+TXTFILE := test.md
 GODFILE := /mnt/c/home/tmp/nya.god
 CHKFILE := /mnt/c/home/tmp/nya.chk
 

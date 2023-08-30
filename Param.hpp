@@ -12,7 +12,6 @@ namespace MeCab {
 	struct Option {
 		const char *name;
 		const char  shortName;
-		const char *defaultValue;
 	};
 	class Param {
 		private:
@@ -23,9 +22,6 @@ namespace MeCab {
 			~Param() {}
 			bool open(int argc, char **argv, const Option *opts) noexcept {
 				if (argc <= 0) return true; // this is not error
-				for (auto i = 0; opts[i].name; ++i)
-					if (opts[i].defaultValue)
-						set(opts[i].name, opts[i].defaultValue);
 				for (auto ind = 1; ind < argc; ++ind) {
 					if (argv[ind][0] == '-') {
 						// long options
