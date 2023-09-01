@@ -22,6 +22,11 @@ HDR += Stream.hpp
 HDR += Writer.hpp
 HDR += mecab.hpp
 
+DICDIR := /mnt/c/home/mecab/unidic-csj-202302
+TXTFILE := test.md
+GODFILE := _test.god
+CHKFILE := _test.chk
+
 .PHONY: all
 all: mecab test
 
@@ -31,17 +36,12 @@ mecab: $(SRC) $(HDR) Makefile
 
 .PHONY: clean
 clean:
-	$(RM) mecab *.o
+	$(RM) mecab *.o $(GODFILE) $(CHKFILE)
 
 .PHONY: tar
 tar:
 	@$(RM) $(FILE)
 	$(TAR) $(FILE) Makefile $(SRC) $(HDR) compile_flags.txt memo.md
-
-DICDIR := /mnt/c/home/mecab/unidic-csj-202302
-TXTFILE := test.md
-GODFILE := /mnt/c/home/tmp/nya.god
-CHKFILE := /mnt/c/home/tmp/nya.chk
 
 TXT := '裏道を通って図書館に通ってジョジョの奇妙な冒険を読破したッ!'
 OPT := -d $(DICDIR) -r dicrc -b 163840
