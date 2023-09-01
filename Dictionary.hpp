@@ -7,9 +7,9 @@
 #include <string_view>
 #include <tuple>
 #include <vector>
-#include "mecab.hpp"
+#include "tmecab.hpp"
 #include "Mmap.hpp"
-namespace MeCab {
+namespace TMeCab {
 	struct Token {
 		uint16_t lcAttr;
 		uint16_t rcAttr;

@@ -1,16 +1,16 @@
 // MeCab -- Yet Another Part-of-Speech and Morphological Analyzer
-// Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
+// Copyright(C) 2001-2011 Taku Kudo <taku@chasen.org>
 // Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
 #pragma once
 #include <forward_list>
 #include <limits>
 #include <vector>
-#include "mecab.hpp"
+#include "tmecab.hpp"
 #include "Param.hpp"
 #include "CharProperty.hpp"
 #include "Dictionary.hpp"
 #include "Writer.hpp"
-namespace MeCab {
+namespace TMeCab {
 	class Lattice {
 		private:
 			std::string                            sentence_;

@@ -6,4 +6,3 @@
 -Wno-unsafe-buffer-usage
 -DDIC_VERSION=102
 -DVERSION="\"0.996\""
--DPACKAGE="\"mecab\""

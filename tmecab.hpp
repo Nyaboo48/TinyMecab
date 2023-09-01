@@ -11,8 +11,8 @@
 #define BOS_KEY            "BOS/EOS"
 #define BOS_FEATURE        "BOS/EOS,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*"
 #define MAX_GROUPING_SIZE  24
-namespace MeCab {
-	// Parameters for MeCab::Node::stat
+namespace TMeCab {
+	// Parameters for TMeCab::Node::stat
 	enum NodeStat : uint8_t {
 		MECAB_NOR_NODE = 0, // Normal node defined in the dictionary.
 		MECAB_UNK_NODE = 1, // Unknown node not defined in the dictionary.

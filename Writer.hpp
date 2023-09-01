@@ -1,5 +1,5 @@
 // MeCab -- Yet Another Part-of-Speech and Morphological Analyzer
-// Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
+// Copyright(C) 2001-2011 Taku Kudo <taku@chasen.org>
 // Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
 #pragma once
 #include <algorithm>
@@ -7,9 +7,9 @@
 #include <string>
 #include <string_view>
 #include <vector>
-#include "mecab.hpp"
+#include "tmecab.hpp"
 #include "Param.hpp"
-namespace MeCab {
+namespace TMeCab {
 	class Writer {
 		private:
 			std::string norFmt_; // normal node format

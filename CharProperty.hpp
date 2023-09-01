@@ -1,5 +1,5 @@
 // MeCab -- Yet Another Part-of-Speech and Morphological Analyzer
-// Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
+// Copyright(C) 2001-2011 Taku Kudo <taku@chasen.org>
 // Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
 #pragma once
 #include <cstdint>
@@ -8,9 +8,9 @@
 #include <string_view>
 #include <tuple>
 #include <vector>
-#include "mecab.hpp"
+#include "tmecab.hpp"
 #include "Mmap.hpp"
-namespace MeCab {
+namespace TMeCab {
 	struct CharInfo {
 		uint32_t type:        18 = 0;
 		uint32_t default_type: 8 = 0;

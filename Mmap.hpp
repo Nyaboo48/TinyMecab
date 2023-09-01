@@ -1,5 +1,5 @@
 // MeCab -- Yet Another Part-of-Speech and Morphological Analyzer
-// Copyright(C) 2001-2006 Taku Kudo <taku@chasen.org>
+// Copyright(C) 2001-2011 Taku Kudo <taku@chasen.org>
 // Copyright(C) 2004-2006 Nippon Telegraph and Telephone Corporation
 #pragma once
 #include <fcntl.h>
@@ -8,11 +8,11 @@
 #include <sys/stat.h>
 #include <iostream>
 #include <string>
-#include "mecab.hpp"
+#include "tmecab.hpp"
 #ifndef O_BINARY
 #define O_BINARY 0
 #endif
-namespace MeCab {
+namespace TMeCab {
 	template <class T> class Mmap {
 		private:
 			T     *buf_;

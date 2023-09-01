@@ -2,7 +2,7 @@
 CXX = clang++
 #LINK = clang++
 
-DEFS = -DDIC_VERSION=102 -DVERSION="\"0.996\"" -DPACKAGE="\"mecab\""
+DEFS = -DDIC_VERSION=102 -DVERSION="\"0.996\""
 INC = -I.
 #CFLAGS = -std=c11 -O2 -Wall $(DEFS)
 #CXXFLAGS = -std=c++20 -O2 -Wall $(INC) $(DEFS)
@@ -12,7 +12,7 @@ RM   := rm -f
 TAR  := tar cofJ
 FILE := /media/Box/TinyMecab$(shell date +%Y%m%d).tar.xz
 
-SRC = mecab.cpp
+SRC = tmecab.cpp
 HDR += CharProperty.hpp
 HDR += Dictionary.hpp
 HDR += Lattice.hpp
@@ -20,34 +20,33 @@ HDR += Mmap.hpp
 HDR += Param.hpp
 HDR += Stream.hpp
 HDR += Writer.hpp
-HDR += mecab.hpp
+HDR += tmecab.hpp
 
-DICDIR := /mnt/c/home/mecab/unidic-csj-202302
+DICDIR := /media/mecab/unidic-csj-202302
 TXTFILE := test.md
 GODFILE := _test.god
 CHKFILE := _test.chk
 
 .PHONY: all
-all: mecab test
+all: tmecab test
 
-#.PHONY: mecab
-mecab: $(SRC) $(HDR) Makefile
+tmecab: $(SRC) $(HDR) Makefile
 	$(CXX) $(CXXFLAGS) -o $@ $(SRC)
 
 .PHONY: clean
 clean:
-	$(RM) mecab *.o $(GODFILE) $(CHKFILE)
+	$(RM) tmecab *.o $(GODFILE) $(CHKFILE)
 
 .PHONY: tar
 tar:
 	@$(RM) $(FILE)
-	$(TAR) $(FILE) Makefile $(SRC) $(HDR) compile_flags.txt memo.md
+	$(TAR) $(FILE) Makefile $(SRC) $(HDR) README.md test.md compile_flags.txt memo.md
 
 TXT := '裏道を通って図書館に通ってジョジョの奇妙な冒険を読破したッ!'
 OPT := -d $(DICDIR) -r dicrc -b 163840
 
 .PHONY: test
-test: mecab $(GODFILE) $(CHKFILE)
+test: tmecab $(GODFILE) $(CHKFILE)
 	diff $(GODFILE) $(CHKFILE) && echo OK
 
 $(GODFILE): Makefile $(TXTFILE)
@@ -64,16 +63,16 @@ $(GODFILE): Makefile $(TXTFILE)
 	@echo $(TXT) | mecab $(OPT) -Orby >> $(GODFILE)
 	@echo $(TXT) | mecab $(OPT) -Orbx >> $(GODFILE)
 
-$(CHKFILE): Makefile ./mecab $(TXTFILE)
-	./mecab $(OPT) < $(TXTFILE) > $(CHKFILE)
+$(CHKFILE): Makefile ./tmecab $(TXTFILE)
+	./tmecab $(OPT) < $(TXTFILE) > $(CHKFILE)
 	echo "■wakati" >> $(CHKFILE)
-	./mecab $(OPT) -Owakati $(TXTFILE) >> $(CHKFILE)
-	./mecab $(OPT) -Owakach $(TXTFILE) >> $(CHKFILE)
+	./tmecab $(OPT) -Owakati $(TXTFILE) >> $(CHKFILE)
+	./tmecab $(OPT) -Owakach $(TXTFILE) >> $(CHKFILE)
 	echo "■rby" >> $(CHKFILE)
-	./mecab $(OPT) -Orby $(TXTFILE) >> $(CHKFILE)
+	./tmecab $(OPT) -Orby $(TXTFILE) >> $(CHKFILE)
 	echo "■rbx" >> $(CHKFILE)
-	./mecab $(OPT) -Orbx $(TXTFILE) >> $(CHKFILE)
+	./tmecab $(OPT) -Orbx $(TXTFILE) >> $(CHKFILE)
 	echo "■STDIN" >> $(CHKFILE)
-	@echo $(TXT) | ./mecab $(OPT) -Osimple >> $(CHKFILE)
-	@echo $(TXT) | ./mecab $(OPT) -Orby >> $(CHKFILE)
-	@echo $(TXT) | ./mecab $(OPT) -Orbx >> $(CHKFILE)
+	@echo $(TXT) | ./tmecab $(OPT) -Osimple >> $(CHKFILE)
+	@echo $(TXT) | ./tmecab $(OPT) -Orby >> $(CHKFILE)
+	@echo $(TXT) | ./tmecab $(OPT) -Orbx >> $(CHKFILE)
