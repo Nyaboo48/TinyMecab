@@ -20,7 +20,6 @@ namespace TMeCab {
 		{"eos-format",         'E'}, // user-defined end-of-sentence format
 		{"eon-format",         'S'}, // user-defined end-of-NBest format(NOT USED)
 		{"unk-feature",        'x'}, // feature for unknown word
-	//{"dump-config",        'P'}, // dump parameters
 		{"input-buffer-size",  'b'}, // IGNORED
 		{nullptr, '\0'}
 	};
@@ -42,13 +41,6 @@ int main(int argc, char **argv) {
 
 	TMeCab::Lattice lattice;
 	if (!lattice.open(param)) return 1;
-
-#if 0
-	if (param.get("dump-config") == "1") {
-		param.dumpConfig(&*os);
-		return 1;
-	}
-#endif
 
 	auto files = param.restArgs();
 	if (files.empty()) files.push_back("-");

@@ -105,10 +105,6 @@ namespace TMeCab {
 				const auto it = conf_.find(key);
 				return it == conf_.end() ? def : it->second;
 			}
-			void dumpConfig(std::ostream *os) const noexcept {
-				for (auto&& it : conf_)
-					*os << it.first << ": " << it.second << std::endl;
-			}
 		private:
 			void set(const char *key, const std::string &val) noexcept {
 				conf_.insert_or_assign(key, val);
