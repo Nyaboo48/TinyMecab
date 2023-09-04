@@ -1,4 +1,4 @@
-# Tyny-mecab
+# TinyMecab
 
 ## class
 
